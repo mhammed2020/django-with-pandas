@@ -6,7 +6,8 @@ import pandas as pd
 def home(request) :
 
     qs = pd.DataFrame(Product.objects.all().values())
-    print(qs)
-   
+    context ={
+        'products':qs.to_html()
+    }
 
-    return render(request,'products/main.html',{})
+    return render(request,'products/main.html',context)
