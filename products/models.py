@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Product(models.Model):
     name = models.CharField(max_length=150)
-    datae = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     
 
     def __str__(self):
