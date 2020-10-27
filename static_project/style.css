@@ -1,0 +1,24 @@
+/* .mymodel {
+    height: 400px !important;
+    top: 200px !important;
+} */
+.ui.modal {
+    width: 643px !important;
+    margin: -182px 0 0 -450px !important;
+}
+
+ul li {
+    margin: 0 0 10px 0;
+}
+.ui.button {
+    width: 200px;
+    border-radius: 0px !important;
+}
+
+.block-center {
+    text-align: center !important;
+}
+
+.field-with {
+    width: 100%;
+}

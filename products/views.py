@@ -7,6 +7,7 @@ from django.http import HttpResponse
 import matplotlib.pyplot as plt 
 import seaborn as sns 
 from django.contrib.auth.decorators import login_required
+from .forms import PurchaseForm
 # Create your views here.
 
 def home(request) :
@@ -22,6 +23,7 @@ def home(request) :
 
         df = pd.merge(qs1,qs,on='product_id').drop(['id_y','date_y'],axis=1).rename({'id_x':'id','date_x':'date'},axis = 1)
 
+        price = df['price']
         if request.method =='POST' :
             chart_type = request.POST['sales']
             date_from = request.POST['date_from']
@@ -46,9 +48,32 @@ def home(request) :
 
 
     context ={
+        'price' : price,
         'graph': graph, 
         'error_message' : error_message ,
         
     }
 
     return render(request,'products/main.html',context)
+
+
+
+
+def add_purchase_view(request):
+    form = PurchaseForm(request.POST or None)
+    added_message=None
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.salesman = request.user
+        obj.save()
+
+        form = PurchaseForm()
+        added_message = "The purchase has been added"
+
+    context = {
+        'form': form,
+        'added_message': added_message,
+    }
+    return render(request, 'products/add.html', context)
+
