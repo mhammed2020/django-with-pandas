@@ -5,11 +5,30 @@
 {% endblock  %}
 
 {% block content %}
-  <h1>hello main</h1>
-  {{products | safe}}
-  <hr>
-  {{purchase | safe}}
-  <hr>
+ 
   {{df | safe}}
 
+
+  <div>
+
+    <form action="" method="POST" class="ui form">
+
+      {% csrf_token %}
+      <div class="field">
+          <label>Choose a chart type :</label>
+          <div class="ui selection dropdown">
+              <input type="hidden" name="sales">
+              <i class="dropdown icon"></i>
+              <div class="default text">---------------</div>
+              <div class="menu">
+                  <div class="item" value="bar">Bar plot </div>
+                  <div class="item" value="line">Line plot </div>
+                  <div class="item" value="count">Count plot </div>
+
+              </div>
+          </div>
+      </div>
+    </form>
+
+  </div>
 {% endblock  %}
