@@ -5,11 +5,29 @@
 {% endblock  %}
 
 {% block content %}
- 
-  {{df | safe}}
+<!--  
 
+{% if df %}
+{{df}}
+
+{% endif %} -->
+  
+<hr>
 
   <div>
+
+    
+    {% if error_message %}
+      {{error_message}}
+    {% endif %}
+      
+      {% if  request.POST %}
+         {% if graph %}
+<img src="data:image/png;base64, {{graph | safe}}">
+
+         {% endif %}
+      {% endif %}
+        
 
     <form action="" method="POST" class="ui form">
 
