@@ -12,13 +12,14 @@
 
 {% endif %} -->
   
-<hr>
 
   <div>
 
     
     {% if error_message %}
-      {{error_message}}
+
+    <div class="ui red message">{{error_message}}</div>
+      
     {% endif %}
       
       {% if  request.POST %}

@@ -33,7 +33,7 @@ def get_simple_plot(chart_type, *args, **kwargs):
 
     x = kwargs.get('x')
     y = kwargs.get('y')
-    
+
     data = kwargs.get('data')
 
     if chart_type == 'bar plot':
@@ -50,7 +50,7 @@ def get_simple_plot(chart_type, *args, **kwargs):
         sns.countplot('name', data=data)
 
 
-    plt.xticks(rotation=45)
+    # plt.xticks(rotation=45)
     plt.tight_layout()
 
     graph = get_image()
