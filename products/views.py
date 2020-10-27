@@ -10,6 +10,11 @@ def home(request) :
     qs['product_id'] = qs['id']
     df = pd.merge(qs1,qs,on='product_id').drop(['id_y','date_y'],axis=1).rename({'id_x':'id','date_x':'date'},axis = 1)
 
+    if request.method =='POST' :
+        chart_type = request.POST['sales']
+        print(chart_type)
+
+
     context ={
         'products':qs.to_html(),
          'purchase':qs1.to_html(),
