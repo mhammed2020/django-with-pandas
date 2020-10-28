@@ -7,5 +7,11 @@
 
     upload
 </h1>
+
+<form action="" method="POST" enctype="multipart/form-data" class="ui form">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="ui positive button mtop">Add data</button>
+</form>
     
 {% endblock content %}
