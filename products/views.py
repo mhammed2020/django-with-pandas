@@ -14,31 +14,36 @@ def home(request) :
     graph = None
     error_message = None
     df = None
+    price = None
+    try :
+        qs = pd.DataFrame(Product.objects.all().values())
+        qs1 = pd.DataFrame(Purchase.objects.all().values())
+        qs['product_id'] = qs['id']
+    except :
+        qs = None
+        qs1 = None
+        
+    if qs1 :
+        if qs1.shape[0] > 0 :
 
-    qs = pd.DataFrame(Product.objects.all().values())
-    qs1 = pd.DataFrame(Purchase.objects.all().values())
-    qs['product_id'] = qs['id']
+            df = pd.merge(qs1,qs,on='product_id').drop(['id_y','date_y'],axis=1).rename({'id_x':'id','date_x':'date'},axis = 1)
 
-    if qs1.shape[0] > 0 :
+            price = df['price']
+            if request.method =='POST' :
+                chart_type = request.POST['sales']
+                date_from = request.POST['date_from']
+                date_to = request.POST['date_to']
+                
+                df['date'] = df['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+                df2 = df.groupby('date', as_index = False)['total_price'].agg('sum')
 
-        df = pd.merge(qs1,qs,on='product_id').drop(['id_y','date_y'],axis=1).rename({'id_x':'id','date_x':'date'},axis = 1)
-
-        price = df['price']
-        if request.method =='POST' :
-            chart_type = request.POST['sales']
-            date_from = request.POST['date_from']
-            date_to = request.POST['date_to']
-            
-            df['date'] = df['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
-            df2 = df.groupby('date', as_index = False)['total_price'].agg('sum')
-
-            if chart_type != "":
-                if date_from != "" and date_to !="" :
-                    df = df[(df['date']>date_from) & (df['date']< date_to)]
-                    df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
-                graph = get_simple_plot(chart_type, x=df2['date'], y=df2['total_price'], data=df)
-            else:
-                error_message = "Please select a chart type to continue"
+                if chart_type != "":
+                    if date_from != "" and date_to !="" :
+                        df = df[(df['date']>date_from) & (df['date']< date_to)]
+                        df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
+                    graph = get_simple_plot(chart_type, x=df2['date'], y=df2['total_price'], data=df)
+                else:
+                    error_message = "Please select a chart type to continue"
           
     else :
         error_message = 'no records in the database'
@@ -48,8 +53,9 @@ def home(request) :
 
 
     context ={
-        'price' : price,
+        
         'graph': graph, 
+        'price' : price,
         'error_message' : error_message ,
         
     }
