@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import PurchaseForm
 # Create your views here.
 
-
+@login_required
 def sales_dist_view(request):
     df = pd.DataFrame(Purchase.objects.all().values())
     df['salesman_id'] = df['salesman_id'].apply(get_salesman_from_id)
@@ -27,7 +27,7 @@ def sales_dist_view(request):
     return render(request, 'products/sales.html', {'graph': graph})
 
 
-
+@login_required
 def home(request) :
     graph = None
     error_message = None
@@ -82,7 +82,7 @@ def home(request) :
 
 
 
-
+@login_required
 def add_purchase_view(request):
     form = PurchaseForm(request.POST or None)
     added_message=None

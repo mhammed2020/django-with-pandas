@@ -20,10 +20,10 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                # if request.GET.get('next'):
-                #     return redirect(request.GET.get('next'))
-                # else:
-                #     return redirect('home')
+                if request.GET.get('next'):
+                    return redirect(request.GET.get('next'))
+                else:
+                    return redirect('home')
 
             else:
                 error_message = 'Ups.Something went wrong...'
