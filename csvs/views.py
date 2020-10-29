@@ -38,7 +38,9 @@ def upload_file_view(request):
                             price = int(row[2]),
                             quantity = int(row[1]),
                             salesman = user,
-                            date = datetime.now()
+                            date = datetime.strptime(row[4], '%d/%m/%y %H:%M:%S')
+
+                           
                         )
                 
                 
