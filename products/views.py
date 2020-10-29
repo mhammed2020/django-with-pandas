@@ -19,11 +19,8 @@ def home(request) :
         qs = pd.DataFrame(Product.objects.all().values())
         qs1 = pd.DataFrame(Purchase.objects.all().values())
         qs['product_id'] = qs['id']
-    except :
-        qs = None
-        qs1 = None
-        
-    if qs1 :
+       
+       
         if qs1.shape[0] > 0 :
 
             df = pd.merge(qs1,qs,on='product_id').drop(['id_y','date_y'],axis=1).rename({'id_x':'id','date_x':'date'},axis = 1)
@@ -44,11 +41,14 @@ def home(request) :
                     graph = get_simple_plot(chart_type, x=df2['date'], y=df2['total_price'], data=df)
                 else:
                     error_message = "Please select a chart type to continue"
-          
-    else :
-        error_message = 'no records in the database'
+        
+        else :
+            error_message = 'no records in the database'
       
-
+    except :
+        qs = None
+        qs1 = None
+        error_message = 'No records in the database'
 
 
 
