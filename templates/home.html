@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}home{% endblock title %}
+
+{% block content %}
+<div class='block-center'>
+    <h1>National Weather Service</h1>
+    <img src="{% static 'main_pic.jpg' %}" class='ui fluid image'>
+</div>
+{% endblock content %}
