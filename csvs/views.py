@@ -29,7 +29,7 @@ def upload_file_view(request):
                 user = User.objects.get(id=row[3])
                 print(user)
                 # print(row[0])
-                # prod, _ = Product.objects.get_or_create(name=row[0])
+                prod, _ = Product.objects.get_or_create(name=row[0])
                 # Purchase.objects.create(
                 #         product=prod,
                 #         price = int(row[2]),
