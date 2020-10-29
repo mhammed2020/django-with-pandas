@@ -23,13 +23,12 @@ def upload_file_view(request):
 
             for row in reader:
                 
-                # row = "".join(row)
-                # row = row.replace(";", " ")
-               
-                # row = row.split()
                 print(row)
-                # user = User.objects.get(id=row[1])
-                # print(user)
+                print(row[0])
+                print(row[3])
+                user = User.objects.get(id=row[3])
+                print(user)
+                # print(row[0])
                 # prod, _ = Product.objects.get_or_create(name=row[0])
                 # Purchase.objects.create(
                 #         product=prod,
