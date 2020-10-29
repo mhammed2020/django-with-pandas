@@ -23,10 +23,10 @@ def upload_file_view(request):
 
             for row in reader:
                 
-                row = "".join(row)
-                row = row.replace(";", " ")
+                # row = "".join(row)
+                # row = row.replace(";", " ")
                
-                row = row.split()
+                # row = row.split()
                 print(row)
                 # user = User.objects.get(id=row[1])
                 # print(user)
